@@ -25,7 +25,7 @@ Auf dieser Seite sammle ich meine Brau-Experimente. Die Posts dienen vor allem a
 {%- if post.related_image -%}
 <a href="{{ post.url }}"><img class="img-responsive" src="{{ post.related_image }}" style="width: 100%;"></a>
 {%- else -%}
-<a href="{{ post.url }}"><img class="img-responsive" src="thumbnails/grey.jpg" style="width: 100%;"></a>
+<a href="{{ post.url }}"><img class="img-responsive" src="/thumbnails/grey.jpg" style="width: 100%;"></a>
 {%- endif -%}
 {{ post.date | date: "%Y-%m-%d" }}<br>
 <h3 class="card-title"><a href ="{{ post.url}}" style="color: inherit;">{{ post.title }}</a></h3>
