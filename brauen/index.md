@@ -2,6 +2,9 @@
 layout: default
 title: Brauen
 math: false
+pagination:
+    enabled: true
+    category: brauen
 ---
 
 <div class="home">
@@ -15,11 +18,8 @@ Auf dieser Seite sammle ich meine Brau-Experimente. Die Posts dienen vor allem a
 </p>
 </div>
 
-{%- if site.posts.size > 0 -%}
-<!-- <div class="col-sm-12" id="main-content"> -->
 <div class="row">
-{%- for post in site.posts -%}
-{%- if post.categories contains 'brauen' -%}
+{%- for post in paginator.posts -%}
 <div class ="col-4">
 <div class="card bg-light mb-3" >
 {%- if post.related_image -%}
@@ -31,9 +31,7 @@ Auf dieser Seite sammle ich meine Brau-Experimente. Die Posts dienen vor allem a
 <h3 class="card-title"><a href ="{{ post.url}}" style="color: inherit;">{{ post.title }}</a></h3>
 </div>
 </div>
-{%- endif -%}
 {%- endfor -%}
-{%- endif -%}
 
 </div>
 </div>
