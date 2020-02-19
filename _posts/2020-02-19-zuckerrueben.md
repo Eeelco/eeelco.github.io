@@ -12,7 +12,7 @@ Kleines Experiment: Kann man Zuckerrueben-Sirup (Goldsaft) aehnlich wie Honig ve
 
 ***
 
-# Zutaten fuer 1 Gallone
+# Zutaten fuer 1 Gallon
 * 2 450g Goldsaft Becher
 * 1 L Apfel-Birnen-Saft, naturtrueb
 * 1 TL Hefeflocken
