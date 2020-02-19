@@ -7,8 +7,7 @@ categories: [brauen]
 related_image: "/thumbnails/zuckerrueben_2020_02_19.jpg"
 ---
 
-Kleines Experiment: Kann man Zuckerrueben-Sirup (Goldsaft) aehnlich wie Honig verwenden, um einen Wein herzustellen? Scheinbar schmeckt es pur nicht so toll (siehe z.B. [hier](https://muehlig.eu/wine/2013-08-24-Zucki-Ruebe/)), aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen...
-<!--more-->
+Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. [hier](https://muehlig.eu/wine/2013-08-24-Zucki-Ruebe/)). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.
 
 ***
 
@@ -16,11 +15,15 @@ Kleines Experiment: Kann man Zuckerrueben-Sirup (Goldsaft) aehnlich wie Honig ve
 * 2 450g Goldsaft Becher
 * 1 L Apfel-Birnen-Saft, naturtrueb
 * 1 TL Hefeflocken
-* 1 TL Brot-Hefe
+* 1 TL Back-Hefe
 * etwas Zucker
 * Wasser n.B.
 
-Ergibt 686 g Zucker auf ca. 3.8 L, d.h. der Wein kann maximal [9.2%vol](https://www.distilling-spirits.com/tools/calculations/sugar-alcohol-conversion/?trigger=zgl&oec=144.47&kmw=29.73&bri=33.99&zgl=180.5&apg=16.52&agl=158.26&apv=20&proof=40#result) Alkohol enthalten. Das sollte die Hefe aushalten, der Wein wird also relativ trocken werden. Womoeglich muss man am Ende noch nachsueszen.
+## Anmerkungen
+* Richtige Weinhefe waere natuerlich besser, aber die habe ich z.Z. nicht da.
+* Die Hefeflocken werden mangels Hefenaehrsalz benutzt. Sie sollten aber ein guter Ersatz sein, da es ja nur tote Hefe ist und alle wichtigen Naehrstoffe enthalten sollte. 
+* Der Zucker aus dem Saft (9.6 g / 100 ml) und dem Goldsaft (66g /100g) ergibt 686 g Zucker auf ca. 3.8 L Volumen, d.h. der Wein kann maximal [9.2%vol](https://www.distilling-spirits.com/tools/calculations/sugar-alcohol-conversion/?trigger=zgl&oec=144.47&kmw=29.73&bri=33.99&zgl=180.5&apg=16.52&agl=158.26&apv=20&proof=40#result) Alkohol enthalten. Das sollte die Hefe wahrscheinlich aushalten, der Wein wird also relativ trocken werden. Womoeglich muss man am Ende noch nachsueszen.
+
 
 ***
 
