@@ -37,6 +37,5 @@ Ergibt 686 g Zucker auf ca. 3.8 L, d.h. der Wein kann maximal [9.2%vol](https://
 # Tagebuch
 **2020-02-19**:  
 Mischung angesetzt. Schaeumt schon relativ stark vor Dazugabe der Hefe.
-<!-- ![](/figures/zuckerrueben_2020_02_19.jpg) -->
-{% responsive_image path: figures/zuckerrueben_2020_02_19.jpg alt: "Zuckerrueben-Wein direkt nach dem Ansetzen"%}
+<img src="/figures/zuckerrueben_2020_02_19.jpg" style="margin: 20px 0px;">
 Nach ca. einer Stunde laesst sich schon Gaeraktivitaet beobachten.
