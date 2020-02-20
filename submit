@@ -1,0 +1,15 @@
+#!/bin/bash
+shopt -s extglob
+
+read -p "Commit message: " message
+git checkout develop
+git add --all
+git commit -m "$message"
+git push -u origin develop
+git checkout master
+rm -r -v !(".git"|".gitignore"|"CNAME"|"submit")
+git checkout develop -- _site
+mv _site/* .
+git add --all
+git commit -m "$message"
+git push -u origin master
