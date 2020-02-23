@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Brauen
-mycat: Brauen
+title: Vino nicht?
+mycat: Vino nicht?
 math: false
 pagination:
     enabled: true
@@ -28,8 +28,9 @@ Auf dieser Seite sammle ich meine Brau-Experimente. Die Posts dienen vor allem a
 {%- else -%}
 <a href="{{ post.url }}"><img class="img-responsive" src="/thumbnails/grey.jpg" style="width: 100%;"></a>
 {%- endif -%}
-{{ post.date | date: "%Y-%m-%d" }}<br>
-<h3 class="card-title"><a href ="{{ post.url}}" style="color: inherit;">{{ post.title }}</a></h3>
+<p class="text-center"> {{ post.date | date: "%Y-%m-%d" }}
+<h3 class="card-title text-center"><a href ="{{ post.url}}" style="color: inherit;">{{ post.title }}</a></h3></p>
+<!-- <h3 class="card-title text-center"><a href ="{{ post.url}}" style="color: inherit;">{{ post.title }}</a></h3> -->
 </div>
 </div>
 {%- endfor -%}
