@@ -1,0 +1,9 @@
+<div class="topnav sticky-top" id="myTopnav">
+    <a href="/" class="active">{{ site.title }}</a>
+    {% for item in site.data.navigation %}
+        <a href="{{ item.url }}">{{ item.title }}</a>
+    {% endfor %}
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>
