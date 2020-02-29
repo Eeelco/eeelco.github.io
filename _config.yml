@@ -22,7 +22,7 @@ title: Blog
 author: Eelco
 email: me@eelco.de
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://blog.eelco.de" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.eelco.de" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 github_username:  eeelco
 repository: eeelco/eeelco.github.io
