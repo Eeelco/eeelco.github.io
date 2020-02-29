@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-20T01:35:54+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Blog</title><author><name>Eelco</name></author><entry><title type="html">Zuckerrueben-Wein</title><link href="http://localhost:4000/2020/02/rueben" rel="alternate" type="text/html" title="Zuckerrueben-Wein" /><published>2020-02-19T12:00:00+01:00</published><updated>2020-02-19T12:00:00+01:00</updated><id>http://localhost:4000/2020/02/rueben</id><content type="html" xml:base="http://localhost:4000/2020/02/rueben">&lt;p&gt;Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. &lt;a href=&quot;https://muehlig.eu/wine/2013-08-24-Zucki-Ruebe/&quot;&gt;hier&lt;/a&gt;). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zutaten-fuer-1-gallon&quot;&gt;Zutaten fuer 1 Gallon&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;2 450g Goldsaft Becher&lt;/li&gt;
+  &lt;li&gt;1 L Apfel-Birnen-Saft, naturtrueb&lt;/li&gt;
+  &lt;li&gt;1 TL Hefeflocken&lt;/li&gt;
+  &lt;li&gt;1 TL Back-Hefe&lt;/li&gt;
+  &lt;li&gt;etwas Zucker&lt;/li&gt;
+  &lt;li&gt;Wasser n.B.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;anmerkungen&quot;&gt;Anmerkungen&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Richtige Weinhefe waere natuerlich besser, aber die habe ich z.Z. nicht da.&lt;/li&gt;
+  &lt;li&gt;Die Hefeflocken werden mangels Hefenaehrsalz benutzt. Sie sollten aber ein guter Ersatz sein, da es ja nur tote Hefe ist und alle wichtigen Naehrstoffe enthalten sollte.&lt;/li&gt;
+  &lt;li&gt;Der Zucker aus dem Saft (9.6 g / 100 ml) und dem Goldsaft (66g /100g) ergibt 686 g Zucker auf ca. 3.8 L Volumen, d.h. der Wein kann maximal &lt;a href=&quot;https://www.distilling-spirits.com/tools/calculations/sugar-alcohol-conversion/?trigger=zgl&amp;amp;oec=144.47&amp;amp;kmw=29.73&amp;amp;bri=33.99&amp;amp;zgl=180.5&amp;amp;apg=16.52&amp;amp;agl=158.26&amp;amp;apv=20&amp;amp;proof=40#result&quot;&gt;9.2%vol&lt;/a&gt; Alkohol enthalten. Das sollte die Hefe wahrscheinlich aushalten, der Wein wird also relativ trocken werden. Womoeglich muss man am Ende noch nachsueszen.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zubereitung&quot;&gt;Zubereitung&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Hefestarter in einem Glas ansetzen mit Hefe, Zucker und etwas Wasser&lt;/li&gt;
+  &lt;li&gt;Goldsaft in heissem Wasser aufloesen und in Gaergefaesz geben&lt;/li&gt;
+  &lt;li&gt;Saft und Hefeflocken dazugeben&lt;/li&gt;
+  &lt;li&gt;Auf eine Gallone auffuellen und gut schuetteln&lt;/li&gt;
+  &lt;li&gt;Hefestarter dazugeben, Gaerverschluss draufsetzen&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;tagebuch&quot;&gt;Tagebuch&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;2020-02-19&lt;/strong&gt;:&lt;br /&gt;
+Mischung angesetzt. Schaeumt schon relativ stark vor Dazugabe der Hefe.
+&lt;img src=&quot;/figures/zuckerrueben_2020_02_19.jpg&quot; style=&quot;margin: 20px 0px;&quot; /&gt;
+Nach ca. einer Stunde laesst sich schon Gaeraktivitaet beobachten.&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. hier). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.</summary></entry><entry><title type="html">Met</title><link href="http://localhost:4000/2020/02/jaom" rel="alternate" type="text/html" title="Met" /><published>2020-02-12T12:00:00+01:00</published><updated>2020-02-12T12:00:00+01:00</updated><id>http://localhost:4000/2020/02/jaom</id><content type="html" xml:base="http://localhost:4000/2020/02/jaom">&lt;p&gt;Ein beliebter Einsteiger-Met ist &lt;a href=&quot;https://www.homebrewtalk.com/forum/threads/joes-ancient-orange-mead.49106/&quot;&gt;Joe’s ancient orange mead&lt;/a&gt;, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zutaten-fuer-1-gallon&quot;&gt;Zutaten fuer 1 Gallon&lt;/h1&gt;
+&lt;p&gt;Siehe Rezept. Ich habe natuerlich keine Fleischmann’s-Hefe gekauft, sondern einfach irgendeine Back-Hefe. Als Honig habe ich genommen:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1 Glas Vielblueten-Honig&lt;/li&gt;
+  &lt;li&gt;1 Glas Wald-Honig&lt;/li&gt;
+  &lt;li&gt;1 Glas Landhonig&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Laut Wikipedia wird kommerziell hergestellter Met normalerweise mit billigem Honig gebraut und der teure (z.B. Wald-) Honig erst nach der Gaerung fuer den Geschmack hinzugegeben. Mal sehen, wie es schmeckt, wenn man direkt besseren Honig nimmt.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zubereitung&quot;&gt;Zubereitung&lt;/h1&gt;
+&lt;p&gt;Siehe Rezept&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;tagebuch&quot;&gt;Tagebuch&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;2020-02-12&lt;/strong&gt;:&lt;br /&gt;
+Mischung angesetzt. Gaerung setzt relativ schnell ein.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020-02-19&lt;/strong&gt;:&lt;br /&gt;
+Gaerung immer noch im Gang&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Ein beliebter Einsteiger-Met ist Joe’s ancient orange mead, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.</summary></entry></feed>
