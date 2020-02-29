@@ -1,0 +1,27 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>https://www.eelco.de</loc>
+    </url>
+  
+        
+    <url>
+      <loc>https://www.eelco.de/2020/02/rueben</loc>
+      <lastmod>2020-02-19T12:00:00+01:00</lastmod>
+      <priority>0.5</priority>
+    </url>
+    
+  
+        
+    <url>
+      <loc>https://www.eelco.de/2020/02/jaom</loc>
+      <lastmod>2020-02-12T12:00:00+01:00</lastmod>
+      <priority>0.5</priority>
+    </url>
+    
+  
+  
+    <url>
+      <loc>https://www.eelco.de/brauen</loc>
+    </url>
+  
+</urlset>
