@@ -38,7 +38,8 @@ kramdown:
    math_engine: mathjax
 
 
-permalink: /:year/:month/:title
+# permalink: /:year/:month/:title
+permalink: /:categories/:title
 
 pagination:
   enabled: true
