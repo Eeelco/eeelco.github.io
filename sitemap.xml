@@ -1,11 +1,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-      <loc>http://localhost:4000</loc>
+      <loc>https://www.eelco.de</loc>
     </url>
   
         
     <url>
-      <loc>http://localhost:4000/brauen/holunder</loc>
+      <loc>https://www.eelco.de/brauen/holunder</loc>
       <lastmod>2020-03-01T11:00:00+01:00</lastmod>
       <priority>0.5</priority>
     </url>
@@ -13,7 +13,7 @@
   
         
     <url>
-      <loc>http://localhost:4000/brauen/rueben</loc>
+      <loc>https://www.eelco.de/brauen/rueben</loc>
       <lastmod>2020-02-19T12:00:00+01:00</lastmod>
       <priority>0.5</priority>
     </url>
@@ -21,7 +21,7 @@
   
         
     <url>
-      <loc>http://localhost:4000/brauen/jaom</loc>
+      <loc>https://www.eelco.de/brauen/jaom</loc>
       <lastmod>2020-02-12T12:00:00+01:00</lastmod>
       <priority>0.5</priority>
     </url>
@@ -29,7 +29,7 @@
   
   
     <url>
-      <loc>http://localhost:4000/brauen</loc>
+      <loc>https://www.eelco.de/brauen</loc>
     </url>
   
 </urlset>
