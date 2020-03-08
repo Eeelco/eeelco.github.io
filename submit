@@ -3,6 +3,7 @@ shopt -s extglob
 
 read -p "Commit message: " message
 git checkout develop
+bundle exec jekyll build
 git add --all
 git commit -m "$message"
 git push -u origin develop
