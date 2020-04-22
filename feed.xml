@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://www.eelco.de/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.eelco.de/" rel="alternate" type="text/html" /><updated>2020-03-08T22:57:34+01:00</updated><id>https://www.eelco.de/feed.xml</id><title type="html">Blog</title><author><name>Eelco</name></author><entry><title type="html">Holunderblueten-Wein</title><link href="https://www.eelco.de/brauen/holunder" rel="alternate" type="text/html" title="Holunderblueten-Wein" /><published>2020-03-01T11:00:00+01:00</published><updated>2020-03-01T11:00:00+01:00</updated><id>https://www.eelco.de/brauen/holunder</id><content type="html" xml:base="https://www.eelco.de/brauen/holunder">&lt;p&gt;Habe im Rewe Holunderblueten-Sirup gesehen und mal mitgenommen. Die Idee ist, ein paar Gewuerze reinzuschmeissen, aber keinen zusaetzlichen Zucker. Das sollte dann einen leichten Gewuerzwein oder so ergeben… mal sehen.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://www.eelco.de/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.eelco.de/" rel="alternate" type="text/html" /><updated>2020-04-22T16:43:48+02:00</updated><id>https://www.eelco.de/feed.xml</id><title type="html">Blog</title><author><name>Eelco</name></author><entry><title type="html"></title><link href="https://www.eelco.de/brauen/2020-04-22-kilju" rel="alternate" type="text/html" title="" /><published>2020-04-22T16:43:48+02:00</published><updated>2020-04-22T16:43:48+02:00</updated><id>https://www.eelco.de/brauen/2020-04-22-kilju</id><content type="html" xml:base="https://www.eelco.de/brauen/2020-04-22-kilju">&lt;p&gt;Mal die fancy Champagnerhefe mit Kilju ausprobieren und dann nach dem Gaeren mit Kruemeleistee verfeinern - schmeckt bestimmt interessant.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zutaten-fuer-3-liter&quot;&gt;Zutaten fuer 3 Liter&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;4 l Wasser&lt;/li&gt;
+  &lt;li&gt;1 kg Zucker&lt;/li&gt;
+  &lt;li&gt;2 TL Kitzinger Champagner-Reinhefe trocken&lt;/li&gt;
+  &lt;li&gt;1 TL Vierka Hefenaehrsalz&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;anmerkungen&quot;&gt;Anmerkungen&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sollte nach der Gaerung ca. &lt;a href=&quot;https://www.distilling-spirits.com/tools/calculations/sugar-alcohol-conversion/?trigger=zgl&amp;amp;oec=71.59&amp;amp;kmw=14.73&amp;amp;bri=16.84&amp;amp;zgl=250&amp;amp;apg=7.40&amp;amp;agl=72.62&amp;amp;apv=9.18&amp;amp;proof=18.35#result&quot;&gt;12.8 %vol&lt;/a&gt; Alkohol enthalten&lt;/li&gt;
+  &lt;li&gt;Hefe ist sehr aktiv, habe schon nach ca. 10 Minuten den Starter umgefuellt&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;zubereitung&quot;&gt;Zubereitung&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Wasser und Zucker in den Gaerbehaelter geben, gut schuetteln&lt;/li&gt;
+  &lt;li&gt;Hefestarter in einem Glas ansetzen mit Hefe und etwas von dem Zuckerwasser&lt;/li&gt;
+  &lt;li&gt;Hefestarter und Naehrsalz in den Gaerbehaelter geben&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;tagebuch&quot;&gt;Tagebuch&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;2020-04-22&lt;/strong&gt;:&lt;br /&gt;
+Mischung angesetzt&lt;/p&gt;</content><author><name>Eelco</name></author></entry><entry><title type="html">Holunderblueten-Wein</title><link href="https://www.eelco.de/brauen/holunder" rel="alternate" type="text/html" title="Holunderblueten-Wein" /><published>2020-03-01T11:00:00+01:00</published><updated>2020-03-01T11:00:00+01:00</updated><id>https://www.eelco.de/brauen/holunder</id><content type="html" xml:base="https://www.eelco.de/brauen/holunder">&lt;p&gt;Habe im Rewe Holunderblueten-Sirup gesehen und mal mitgenommen. Die Idee ist, ein paar Gewuerze reinzuschmeissen, aber keinen zusaetzlichen Zucker. Das sollte dann einen leichten Gewuerzwein oder so ergeben… mal sehen.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -40,7 +71,10 @@ Mischung angesetzt.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020-03-08&lt;/strong&gt;&lt;br /&gt;
 Seit einigen Tagen keine Fermentation mehr, der Wein schmeckt aber noch sehr suesz. Unklar, was das Problem ist im Sirup waren keine Konservierungsstoffe oder so.&lt;br /&gt;
-Habe jetzt nochmal 1 TL Backhefe drauf gekippt, vielleicht startet das die Fermentation wieder.&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Habe im Rewe Holunderblueten-Sirup gesehen und mal mitgenommen. Die Idee ist, ein paar Gewuerze reinzuschmeissen, aber keinen zusaetzlichen Zucker. Das sollte dann einen leichten Gewuerzwein oder so ergeben… mal sehen.</summary></entry><entry><title type="html">Zuckerrueben-Wein</title><link href="https://www.eelco.de/brauen/rueben" rel="alternate" type="text/html" title="Zuckerrueben-Wein" /><published>2020-02-19T12:00:00+01:00</published><updated>2020-02-19T12:00:00+01:00</updated><id>https://www.eelco.de/brauen/rueben</id><content type="html" xml:base="https://www.eelco.de/brauen/rueben">&lt;p&gt;Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. &lt;a href=&quot;https://muehlig.eu/wine/2013-08-24-Zucki-Ruebe/&quot;&gt;hier&lt;/a&gt;). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.&lt;/p&gt;
+Habe jetzt nochmal 1 TL Backhefe drauf gekippt, vielleicht startet das die Fermentation wieder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Postmorten&lt;/strong&gt;:&lt;br /&gt;
+Alles weggekippt, ist wohl nichts geworden…&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Habe im Rewe Holunderblueten-Sirup gesehen und mal mitgenommen. Die Idee ist, ein paar Gewuerze reinzuschmeissen, aber keinen zusaetzlichen Zucker. Das sollte dann einen leichten Gewuerzwein oder so ergeben… mal sehen.</summary></entry><entry><title type="html">Zuckerrueben-Wein</title><link href="https://www.eelco.de/brauen/rueben" rel="alternate" type="text/html" title="Zuckerrueben-Wein" /><published>2020-02-19T12:00:00+01:00</published><updated>2020-02-19T12:00:00+01:00</updated><id>https://www.eelco.de/brauen/rueben</id><content type="html" xml:base="https://www.eelco.de/brauen/rueben">&lt;p&gt;Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. &lt;a href=&quot;https://muehlig.eu/wine/2013-08-24-Zucki-Ruebe/&quot;&gt;hier&lt;/a&gt;). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -89,11 +123,14 @@ Sehr aktive Gaerung. Blubberfrequenz &amp;gt; 1 Hz.&lt;/p&gt;
 Nur noch langsame Fermentation - Umfuellen in neuen Behaelter&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020-02-29&lt;/strong&gt;&lt;br /&gt;
-Seit einigen Tagen sind keine Blasen mehr erkennbar, die Fermentation scheint fertig zu sein. Geschmacklich ist der Wein interessant, relativ malzig, fast wie ein dunkles Bier. Ich habe ihn in 5 Bierflaschen abgefuellt (es ist relativ viel beim abdekantieren drin geblieben. Ich wollte nicht so viel Sediment mit absaugen), in eine davon noch ca. 2/3 TL Traubenzucker gegeben, um zu testen, wie er mit Kohlensaeure schmeckt.&lt;/p&gt;
+Seit einigen Tagen sind keine Blasen mehr erkennbar, die Fermentation scheint fertig zu sein. Geschmacklich ist der Wein interessant, relativ malzig, fast wie ein dunkles Bier. Ich habe ihn in 5 Bierflaschen abgefuellt (es ist relativ viel beim abdekantieren drin geblieben. Ich wollte nicht so viel Sediment mit absaugen**, in eine davon noch ca. 2/3 TL Traubenzucker gegeben, um zu testen, wie er mit Kohlensaeure schmeckt.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/figures/zuckerrueben_2020_02_29.jpg&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;In ca. einem Monat werde ich mal die erste Flasche testen.&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. hier). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.</summary></entry><entry><title type="html">Met</title><link href="https://www.eelco.de/brauen/jaom" rel="alternate" type="text/html" title="Met" /><published>2020-02-12T12:00:00+01:00</published><updated>2020-02-12T12:00:00+01:00</updated><id>https://www.eelco.de/brauen/jaom</id><content type="html" xml:base="https://www.eelco.de/brauen/jaom">&lt;p&gt;Ein beliebter Einsteiger-Met ist &lt;a href=&quot;https://www.homebrewtalk.com/forum/threads/joes-ancient-orange-mead.49106/&quot;&gt;Joe’s ancient orange mead&lt;/a&gt;, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.&lt;/p&gt;
+&lt;p&gt;In ca. einem Monat werde ich mal die erste Flasche testen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020-03-30&lt;/strong&gt;:&lt;br /&gt;
+Schmeckt komisch - wie Zuckerruebensirup, aber komplett trocken. Vielleicht sogar ok, wenn man ihn mit was Sueszem mischt…&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Die Idee, Zuckerrueben-Sirup zu vergaeren, hatten natuerlich schon einige andere Menschen (siehe z.B. hier). Scheinbar schmeckt es pur nicht so toll, aber vielleicht laesst sich der Wein ja mit ein bisschen Saft aufpimpen? Schwer zu sagen, welches Obst passt - ich wollte Birne nehmen, aber den gab es im Rewe nicht, also wird es Apfel-Birne.</summary></entry><entry><title type="html">Met</title><link href="https://www.eelco.de/brauen/jaom" rel="alternate" type="text/html" title="Met" /><published>2020-02-12T12:00:00+01:00</published><updated>2020-02-12T12:00:00+01:00</updated><id>https://www.eelco.de/brauen/jaom</id><content type="html" xml:base="https://www.eelco.de/brauen/jaom">&lt;p&gt;Ein beliebter Einsteiger-Met ist &lt;a href=&quot;https://www.homebrewtalk.com/forum/threads/joes-ancient-orange-mead.49106/&quot;&gt;Joe’s ancient orange mead&lt;/a&gt;, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -119,4 +156,7 @@ Seit einigen Tagen sind keine Blasen mehr erkennbar, die Fermentation scheint fe
 Mischung angesetzt. Gaerung setzt relativ schnell ein.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020-02-19&lt;/strong&gt;:&lt;br /&gt;
-Gaerung immer noch im Gang&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Ein beliebter Einsteiger-Met ist Joe’s ancient orange mead, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.</summary></entry></feed>
+Gaerung immer noch im Gang&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020-04-08&lt;/strong&gt;:&lt;br /&gt;
+Nach ca. einer Woche ohne Gaeraktivitaet den Met in Flaschen abgefuellt. Schon eine probiert - schmeckt ok, aber braucht noch ein bisschen.&lt;/p&gt;</content><author><name>Eelco</name></author><summary type="html">Ein beliebter Einsteiger-Met ist Joe’s ancient orange mead, kurz JAOM. Man nimmt Back-Hefe, zieht zwischendurch nicht ab und laesst alles einfach zwei Monate stehen. Die zugegebenen Gewuerze sollen dann den eventuellen hefigen Geschamck ueberdecken. Ich wollte schon laenger mal einen Met (bzw. eigentlich ist es ja Melomel, da man Orangen rein wirft) machen.</summary></entry></feed>
