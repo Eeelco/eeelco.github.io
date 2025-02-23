@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Posts on Eelco</title>
+		<link>https://www.eelco.de/posts/</link>
+		<description>Recent content in Posts on Eelco</description>
+		<generator>Hugo -- 0.144.2</generator>
+		<language>en-us</language>
+		<lastBuildDate>Wed, 26 Aug 2020 06:05:24 -0400</lastBuildDate>
+		<atom:link href="https://www.eelco.de/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		
+		<item>
+			<title>Avoiding dynamic memory allocation when throwing standard library exceptions</title>
+			<link>https://www.eelco.de/posts/static-exceptions/</link>
+			<pubDate>Sun, 02 Feb 2025 00:00:00 +0000</pubDate><author>Eelco Empting</author><guid>https://www.eelco.de/posts/static-exceptions/</guid>
+			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<p>Many C++ use-cases don&rsquo;t allow for heap allocation after some startup phase. This means
+that for those use-cases exceptions are off the table, since typical implementations
+will always lead to heap allocation when an exception is thrown. I tried to come up
+with a small library that solves this problem, but this is not more than a proof of concept.</p>
+<p><strong>Note:</strong> For the rest of this post, GCC and libstdc++ are assumed.</p>
+<h2 id="allocating-exceptions">Allocating exceptions<a href="#allocating-exceptions" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h2>
+<h3 id="itanium-abi">Itanium ABI<a href="#itanium-abi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h3>
+<p>The <a href="https://itanium-cxx-abi.github.io/cxx-abi/abi-eh.html#cxx-abi">Itanium ABI</a>, which is used by
+probably every C++ compiler except for MSVC, defines (among other things) what should happen when
+an exception is thrown.<br>
+It outlines the following broad steps:</p>
+<ol>
+<li>Call <code>__cxa_allocate_exception</code> to allocate memory required to store the exception object</li>
+<li>Evaluate the thrown expression and copy it into the buffer allocated in step 1</li>
+<li>Call <code>__cxa_throw</code>, which does some bookkeeping before calling <code>_Unwind_RaiseException</code>,
+which in turn starts the process of stack unwinding</li>
+</ol>
+<p>So what exactly happens when <code>__cxa_allocate_exception</code> is called? The Itanium ABI does not specify
+that the allocated memory HAS to be on the heap, only that</p>
+<blockquote>
+<p>&ldquo;This storage must persist while stack is being unwound, since it will be used by the handler, and must be thread-safe&rdquo;<br>
+&ndash; <a href="https://itanium-cxx-abi.github.io/cxx-abi/abi-eh.html#cxx-allocate">Section 2.4.2 of the Itanium C++ ABI spec</a></p></blockquote>
+<span class="sidenote">
+    <label class="sidenote-label" for="sidenote-0">In practice, most implementations will just call <code>malloc</code>.</label>
+    <input class="sidenote-checkbox" type="checkbox" id="sidenote-0"></input>
+    <span class="sidenote-content sidenote-right">
+    
+The spec does allow implementations to provide an emergency buffer as a fallback, in case this call to <code>malloc</code> fails. 
+GCC does provide one, which is then used to allocate memory for a thrown exception.
+This emergency buffer is allocated on the heap on program startup, but libstdc++ <a href="https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_exceptions.html#intro.using.exception.alloc">can be configured to allocate it on the stack instead</a>.
+Still, this buffer can only be used as a fallback.
+
+    </span>
+</span>
+<h3 id="overwriting-__cxa_allocate_exception">Overwriting __cxa_allocate_exception<a href="#overwriting-__cxa_allocate_exception" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h3>
+<p>So, in order to stop our code from calling <code>malloc</code>, we have to overwrite <code>__cxa_allocate_exception</code>
+(and the correspoding <code>__cxa_free_exception</code>) so that exceptions will always be allocated in some
+kind of static buffer.</p>
+<p>Fortunately this work has already been done in <a href="https://github.com/ApexAI/static_exception">ApexAI&rsquo;s <code>static_exception</code> library</a>.
+We can download it, link to it, and now throw exceptions without calling malloc.<br>
+To test this, we can re-define <code>malloc</code> as</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;dlfcn.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;exception&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> g_forbid_malloc;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">malloc</span>(size_t size) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>real_malloc)(size_t) <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>real_malloc) {
+</span></span><span style="display:flex;"><span>    real_malloc <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>)(size_t))dlsym(RTLD_NEXT, <span style="color:#e6db74">&#34;malloc&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> real_malloc(size);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (g_forbid_malloc) {
+</span></span><span style="display:flex;"><span>    fprintf(stderr, <span style="color:#e6db74">&#34;malloc(%d) = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(size), p);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>terminate();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then run (be sure to compile with <code>-O0</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  g_forbid_malloc <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">int</span> i) {
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Success!&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And indeed, it prints <code>Success!</code>. While this is the hardest part, it&rsquo;s unfortunately not the end of it.</p>
+<h2 id="getting-rid-of-allocations-for-standard-library-exceptions">Getting rid of allocations for standard library exceptions<a href="#getting-rid-of-allocations-for-standard-library-exceptions" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h2>
+<p>The goal is to be able to throw standard library exceptions without dynamically allocating memory.<br>
+The following code snippet will still fail, however:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  g_forbid_malloc <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    v.at(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Success!&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As it turns out, many of the exceptions thrown by the standard library will construct a string
+for their error message, and this string will allocate heap memory.</p>
+<p>We can see what exactly is going on when looking at the libstdc++ source code.
+The <code>vector.at()</code> function is <a href="https://github.com/gcc-mirror/gcc/blob/9e3ceed8d50912e271e84389ed80aeea47184e59/libstdc%2B%2B-v3/include/bits/stl_vector.h#L1288C1-L1316C8">defined as</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">_M_range_check</span>(size_type __n) <span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (__n <span style="color:#f92672">&gt;=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>size())
+</span></span><span style="display:flex;"><span>	  __throw_out_of_range_fmt(__N(<span style="color:#e6db74">&#34;vector::_M_range_check: __n &#34;</span>
+</span></span><span style="display:flex;"><span>				       <span style="color:#e6db74">&#34;(which is %zu) &gt;= this-&gt;size() &#34;</span>
+</span></span><span style="display:flex;"><span>				       <span style="color:#e6db74">&#34;(which is %zu)&#34;</span>),
+</span></span><span style="display:flex;"><span>				   __n, <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>size());
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ....
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>reference
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">at</span>(size_type __n)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	_M_range_check(__n);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> (<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>)[__n];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So it will first perform a range check, and if this range check fails, it will call <code>____throw_out_of_range_fmt</code>.
+As might be suspected from the name, this function will throw an instance of <code>std::out_of_range</code>.<br>
+It turns out that similar functions exist for all exceptions defined in the <code>&lt;stdexcept&gt;</code> header, and that
+they can be overridden.</p>
+<h3 id="stackstring">StackString<a href="#stackstring" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h3>
+<p>First we will need a way to store the exception message without allocating on the heap. One way to do this
+is to create a <code>StackString</code> class, which stores the string in a stack buffer. The problem with this approach
+is that the exception message will have to be truncated if it is too long to store in the buffer, but this
+can be mostly prevented by choosing a relatively large buffer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> std<span style="color:#f92672">::</span>size_t stackBufferSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> truncatedMessage[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;...&lt;truncated&gt;&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> std<span style="color:#f92672">::</span>size_t truncatedMessageSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(truncatedMessage);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static_assert</span>(truncatedMessageSize <span style="color:#f92672">&lt;</span> stackBufferSize);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StackString</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  StackString(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>size_t len <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>strlen(str);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (len <span style="color:#f92672">&gt;=</span> stackBufferSize) {
+</span></span><span style="display:flex;"><span>      std<span style="color:#f92672">::</span>strncpy(buffer, str, stackBufferSize <span style="color:#f92672">-</span> truncatedMessageSize);
+</span></span><span style="display:flex;"><span>      std<span style="color:#f92672">::</span>strncpy(buffer <span style="color:#f92672">+</span> stackBufferSize <span style="color:#f92672">-</span> truncatedMessageSize, truncatedMessage,
+</span></span><span style="display:flex;"><span>                  truncatedMessageSize);
+</span></span><span style="display:flex;"><span>      buffer[stackBufferSize<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      std<span style="color:#f92672">::</span>strncpy(buffer, str, len);
+</span></span><span style="display:flex;"><span>      buffer[len] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  StackString(<span style="color:#66d9ef">const</span> StackString <span style="color:#f92672">&amp;</span>other) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>strncpy(buffer, other.buffer, stackBufferSize);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  StackString(StackString <span style="color:#f92672">&amp;&amp;</span>other) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>strncpy(buffer, other.buffer, stackBufferSize);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">c_str</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> buffer; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> buffer[stackBufferSize];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="custom-exception-types">Custom exception types<a href="#custom-exception-types" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h3>
+<p>Using this, we can define our own exception types. These will be child classes of the
+standard library exceptions, so we don&rsquo;t have to change the <code>catch</code> clauses.<br>
+One example would be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OutOfRange</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> std<span style="color:#f92672">::</span>out_of_range {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Call ctor of parent class with empty string, since it does not have a default ctor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// No heap allocation because of small string optimization
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  OutOfRange(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>msg) <span style="color:#f92672">:</span> std<span style="color:#f92672">::</span>out_of_range(<span style="color:#e6db74">&#34;&#34;</span>), message(msg) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">what</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">noexcept</span> <span style="color:#66d9ef">override</span> { <span style="color:#66d9ef">return</span> message.c_str(); }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  StackString message;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Repeat for each standard exception type. Or to avoid code duplication:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Base<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Exception</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  Exception(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>msg) <span style="color:#f92672">:</span> Base(<span style="color:#e6db74">&#34;&#34;</span>), message(msg) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">what</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">noexcept</span> <span style="color:#66d9ef">override</span> { <span style="color:#66d9ef">return</span> message.c_str(); }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  StackString message;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Repeat using statement for all types
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> OutOfRange <span style="color:#f92672">=</span> Exception<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&gt;</span>;
+</span></span></code></pre></div><h3 id="tying-it-all-together">Tying it all together<a href="#tying-it-all-together" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h3>
+<p>The only step left now is to overwrite the throwing functions we found earlier,
+<span class="sidenote">
+    <label class="sidenote-label" for="sidenote-1">like so:</label>
+    <input class="sidenote-checkbox" type="checkbox" id="sidenote-1"></input>
+    <span class="sidenote-content sidenote-right">
+    
+Actually, this exception type has two throwing functions, the other being <code>__throw_out_of_range_fmt</code>.
+This second function is used to format a string before passing it to the constructor of <code>OutOfRange</code>
+
+    </span>
+</span></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> std {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">__throw_out_of_range</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>__s) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">throw</span> OutOfRange(__s); 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A list of all standard exceptions that allocate memory for a string can be found <a href="https://en.cppreference.com/w/cpp/header/stdexcept">here</a>.
+For each of these, the throwing function can be overwritten. Wrap it all in a library, compile to a shared object,
+and link against it - standard exceptions are now allocation free!</p>
+<h2 id="pitfalls">Pitfalls<a href="#pitfalls" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h2>
+<p>Actually, it&rsquo;s not quite as easy, and you probably should not use this in production.
+Some reasons are:</p>
+<ul>
+<li>The throwing functions which we overwrite here are <span class="sidenote">
+    <label class="sidenote-label" for="sidenote-2">implementation details of libstdc++.</label>
+    <input class="sidenote-checkbox" type="checkbox" id="sidenote-2"></input>
+    <span class="sidenote-content sidenote-right">
+    
+Clang's <code>libc++</code> actually uses functions with the same name to throw exceptions from stadard library containers.
+However, they define these functions in the <code>&lt;stdexcept&gt;</code> header, so it's not possible to replace them in this way.
+
+    </span>
+</span>
+They are not advertised as being supposed to be overwritten, so this is technically undefined behavior.</li>
+<li>This will probably not work if you statically link either this library or libstdc++</li>
+<li>This will only work if this library comes before libstdc++ in the list of dynamically linked libraries</li>
+</ul>
+<h2 id="links">Links<a href="#links" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+   </svg></a></h2>
+<ul>
+<li>I&rsquo;ve thrown together <a href="https://github.com/Eeelco/static_std_exception">a small library</a> as a proof of concept. It builds on ApexAI&rsquo;s <code>static_exception</code> library and extends it with the functionality shown in this post</li>
+<li>For a deep dive into the viability of using exceptions in embedded programming, I recommed <a href="https://www.youtube.com/watch?v=bY2FlayomlE">Khalil Estell&rsquo;s talk at last year&rsquo;s CppCon</a></li>
+</ul>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>
